@@ -95,7 +95,8 @@ export default function AnniversaryBanner({
 
           <h2 className="font-handwriting text-3xl sm:text-4xl font-bold flex items-center gap-2 flex-wrap pt-0.5">
             <span>
-              {stats.daysTogether.toLocaleString("id-ID")} Exited Sendiri
+              {stats.daysTogether.toLocaleString("id-ID")} Hari Bersama & Terus
+              Bertambah
             </span>
             <Heart className="w-6 h-6 fill-white/90 text-white inline shrink-0" />
           </h2>
