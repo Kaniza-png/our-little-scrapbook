@@ -112,11 +112,11 @@ export default function SettingsModal({
           )}
 
           {/* Nama Pasangan */}
-          <div className="min-w-0">
+          <div>
             <label className="block text-xs font-semibold text-scrapbook-text mb-1">
               Nama Pasangan / Judul Perjalanan *
             </label>
-            <div className="relative w-full min-w-0">
+            <div className="relative">
               <Heart className="w-4 h-4 text-scrapbook-primary absolute left-3.5 top-3.5 pointer-events-none" />
               <input
                 type="text"
@@ -124,34 +124,34 @@ export default function SettingsModal({
                 value={coupleNames}
                 onChange={(e) => setCoupleNames(e.target.value)}
                 disabled={saving}
-                className="block w-full min-w-0 max-w-full box-border h-11 pl-10 pr-3.5 text-sm rounded-xl border border-scrapbook-secondary focus:outline-none focus:ring-2 focus:ring-scrapbook-primary/40"
+                className="w-full h-11 pl-10 pr-3.5 text-sm rounded-xl border border-scrapbook-secondary focus:outline-none focus:ring-2 focus:ring-scrapbook-primary/40"
               />
             </div>
           </div>
 
           {/* Tanggal Jadian */}
-          <div className="min-w-0">
+          <div>
             <label className="block text-xs font-semibold text-scrapbook-text mb-1">
               Tanggal Jadian / Mulai Bersama *
             </label>
-            <div className="relative w-full min-w-0 overflow-hidden">
-              <CalendarHeart className="w-4 h-4 text-scrapbook-primary absolute left-3.5 top-3.5 pointer-events-none z-10" />
+            <div className="flex items-center gap-2.5 w-full h-11 px-3.5 rounded-xl border border-scrapbook-secondary bg-white focus-within:ring-2 focus-within:ring-scrapbook-primary/40">
+              <CalendarHeart className="w-4 h-4 text-scrapbook-primary shrink-0" />
               <input
                 type="date"
                 value={anniversaryDate}
                 onChange={(e) => setAnniversaryDate(e.target.value)}
                 disabled={saving}
-                className="block w-full min-w-0 max-w-full box-border h-11 pl-10 pr-3.5 text-sm rounded-xl border border-scrapbook-secondary bg-white text-scrapbook-text focus:outline-none focus:ring-2 focus:ring-scrapbook-primary/40"
+                className="w-full min-w-0 bg-transparent border-0 p-0 text-sm text-scrapbook-text focus:outline-none"
               />
             </div>
           </div>
 
           {/* Passcode Bersama */}
-          <div className="min-w-0">
+          <div>
             <label className="block text-xs font-semibold text-scrapbook-text mb-1">
               Shared Passcode Login *
             </label>
-            <div className="relative w-full min-w-0">
+            <div className="relative">
               <KeyRound className="w-4 h-4 text-scrapbook-primary absolute left-3.5 top-3.5 pointer-events-none" />
               <input
                 type={showPasscode ? "text" : "password"}
@@ -159,7 +159,7 @@ export default function SettingsModal({
                 value={passcode}
                 onChange={(e) => setPasscode(e.target.value)}
                 disabled={saving}
-                className="block w-full min-w-0 max-w-full box-border h-11 pl-10 pr-10 text-sm rounded-xl border border-scrapbook-secondary focus:outline-none focus:ring-2 focus:ring-scrapbook-primary/40"
+                className="w-full h-11 pl-10 pr-10 text-sm rounded-xl border border-scrapbook-secondary focus:outline-none focus:ring-2 focus:ring-scrapbook-primary/40"
               />
               <button
                 type="button"

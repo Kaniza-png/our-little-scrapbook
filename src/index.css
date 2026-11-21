@@ -20,6 +20,7 @@
 }
 
 /* Kunci halaman agar tidak goyang ke samping & tidak auto-zoom di HP */
+/* Kunci halaman agar tidak goyang ke samping & tidak auto-zoom di HP */
 html,
 body {
   width: 100%;
@@ -38,18 +39,13 @@ body {
   }
 }
 
-/* Paksa kolom input tanggal di Safari iOS agar tidak melebar keluar batas */
+/* Rapikan teks tanggal di Safari iOS agar tidak melebar keluar batas */
 input[type="date"] {
-  display: block;
-  width: 100%;
-  max-width: 100%;
   min-width: 0;
-  min-inline-size: 0;
-  box-sizing: border-box;
-  text-align: left;
+  max-width: 100%;
 }
 
 input[type="date"]::-webkit-date-and-time-value {
   text-align: left;
-  min-height: 1.5em;
+  margin: 0;
 }
