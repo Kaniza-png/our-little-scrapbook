@@ -192,240 +192,238 @@ export default function AddMemoryModal({
   return (
     <div
       onClick={resetAndClose}
-      className="fixed inset-0 z-50 overflow-y-auto overflow-x-hidden bg-black/50 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-start sm:items-center justify-center p-4 bg-black/50 backdrop-blur-sm overflow-y-auto overflow-x-hidden overscroll-x-none"
     >
-      <div className="min-h-full flex items-center justify-center p-3 sm:p-5">
-        <div
-          onClick={(e) => e.stopPropagation()}
-          className="w-full max-w-lg min-w-0 bg-white rounded-2xl shadow-2xl border border-scrapbook-secondary overflow-hidden"
-        >
-          {/* Header */}
-          <div className="bg-scrapbook-bg px-4 sm:px-5 py-4 border-b border-scrapbook-secondary flex items-center justify-between gap-2">
-            <div className="flex items-center gap-2 min-w-0">
-              <Heart className="w-5 h-5 text-scrapbook-primary fill-current shrink-0" />
-              <div className="min-w-0">
-                <h2 className="font-handwriting text-3xl font-bold text-scrapbook-text leading-none truncate">
-                  Tambah Kenangan Baru
-                </h2>
-                <p className="text-[11px] text-scrapbook-text/70 mt-0.5 truncate">
-                  Abadikan cerita & foto momen spesial kalian
-                </p>
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-scrapbook-secondary overflow-hidden my-auto"
+      >
+        {/* Header */}
+        <div className="bg-scrapbook-bg px-5 py-4 border-b border-scrapbook-secondary flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 min-w-0">
+            <Heart className="w-5 h-5 text-scrapbook-primary fill-current shrink-0" />
+            <div className="min-w-0">
+              <h2 className="font-handwriting text-3xl font-bold text-scrapbook-text leading-none">
+                Tambah Kenangan Baru
+              </h2>
+              <p className="text-[11px] text-scrapbook-text/70 mt-0.5">
+                Abadikan cerita & foto momen spesial kalian
+              </p>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            disabled={saving}
+            onClick={resetAndClose}
+            className="p-1.5 rounded-full text-scrapbook-text/60 hover:bg-scrapbook-secondary/50 transition shrink-0"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="p-5 space-y-4">
+          {errorMsg && (
+            <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-medium">
+              {errorMsg}
+            </div>
+          )}
+
+          {/* Judul */}
+          <div>
+            <label className="block text-xs font-semibold text-scrapbook-text mb-1">
+              Judul Kenangan *
+            </label>
+            <input
+              type="text"
+              placeholder="Misal: Makan Malam Pertama di Blok M"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              disabled={saving}
+              className="w-full h-11 px-3.5 text-sm rounded-xl border border-scrapbook-secondary focus:outline-none focus:ring-2 focus:ring-scrapbook-primary/40"
+            />
+          </div>
+
+          {/* Tanggal & Kategori */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label className="block text-xs font-semibold text-scrapbook-text mb-1">
+                Tanggal Kejadian *
+              </label>
+              <div className="relative">
+                <Calendar className="w-4 h-4 text-scrapbook-primary absolute left-3 top-3.5 pointer-events-none" />
+                <input
+                  type="date"
+                  value={eventDate}
+                  onChange={(e) => setEventDate(e.target.value)}
+                  disabled={saving}
+                  className="w-full h-11 pl-9 pr-3 text-sm rounded-xl border border-scrapbook-secondary bg-white text-scrapbook-text focus:outline-none focus:ring-2 focus:ring-scrapbook-primary/40"
+                />
               </div>
             </div>
 
+            <div>
+              <div className="flex items-center justify-between mb-1">
+                <label className="block text-xs font-semibold text-scrapbook-text">
+                  Kategori
+                </label>
+                {onOpenAddCategory && (
+                  <button
+                    type="button"
+                    onClick={onOpenAddCategory}
+                    className="inline-flex items-center gap-0.5 text-[11px] font-semibold text-scrapbook-primary hover:underline"
+                  >
+                    <Plus className="w-3 h-3" />
+                    <span>Baru</span>
+                  </button>
+                )}
+              </div>
+              <select
+                value={categoryId}
+                onChange={(e) => setCategoryId(e.target.value)}
+                disabled={saving}
+                className="w-full h-11 px-3 text-sm rounded-xl border border-scrapbook-secondary bg-white text-scrapbook-text focus:outline-none focus:ring-2 focus:ring-scrapbook-primary/40"
+              >
+                {categories.map((cat) => (
+                  <option key={cat.id} value={cat.id}>
+                    {cat.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          {/* Nama Lokasi & Link Maps */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label className="block text-xs font-semibold text-scrapbook-text mb-1">
+                Nama Tempat (Opsional)
+              </label>
+              <div className="relative">
+                <MapPin className="w-4 h-4 text-scrapbook-primary absolute left-3 top-3.5 pointer-events-none" />
+                <input
+                  type="text"
+                  placeholder="Misal: Pantai Indah Kapuk"
+                  value={locationName}
+                  onChange={(e) => setLocationName(e.target.value)}
+                  disabled={saving}
+                  className="w-full h-11 pl-9 pr-3 text-sm rounded-xl border border-scrapbook-secondary focus:outline-none focus:ring-2 focus:ring-scrapbook-primary/40"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-scrapbook-text mb-1">
+                Link Google Maps (Opsional)
+              </label>
+              <div className="relative">
+                <LinkIcon className="w-4 h-4 text-scrapbook-primary absolute left-3 top-3.5 pointer-events-none" />
+                <input
+                  type="url"
+                  placeholder="https://maps.google.com/..."
+                  value={locationUrl}
+                  onChange={(e) => setLocationUrl(e.target.value)}
+                  disabled={saving}
+                  className="w-full h-11 pl-9 pr-3 text-sm rounded-xl border border-scrapbook-secondary focus:outline-none focus:ring-2 focus:ring-scrapbook-primary/40"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Upload Foto */}
+          <div>
+            <label className="block text-xs font-semibold text-scrapbook-text mb-1.5">
+              Foto Momen (Bisa pilih banyak sekaligus) *
+            </label>
+
+            <label className="flex flex-col items-center justify-center p-4 rounded-xl border-2 border-dashed border-scrapbook-secondary bg-scrapbook-bg/40 hover:bg-scrapbook-bg cursor-pointer transition">
+              <ImagePlus className="w-6 h-6 text-scrapbook-primary mb-1" />
+              <span className="text-xs font-semibold text-scrapbook-text text-center">
+                Klik untuk memilih foto dari galeri
+              </span>
+              <span className="text-[11px] text-scrapbook-text/60 mt-0.5 text-center">
+                Otomatis dikompres agar hemat kuota & cepat dimuat
+              </span>
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={handleFileChange}
+                disabled={saving}
+                className="hidden"
+              />
+            </label>
+
+            {/* Pratinjau Foto Terpilih */}
+            {previews.length > 0 && (
+              <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 mt-3">
+                {previews.map((src, idx) => (
+                  <div
+                    key={src}
+                    className="relative aspect-square rounded-xl overflow-hidden border border-scrapbook-secondary bg-pink-50"
+                  >
+                    <img
+                      src={src}
+                      alt={`Pratinjau ${idx + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                    <button
+                      type="button"
+                      disabled={saving}
+                      onClick={() => removePhoto(idx)}
+                      className="absolute top-1 right-1 p-1 rounded-full bg-black/65 text-white hover:bg-red-600 transition"
+                      title="Hapus foto ini"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Cerita */}
+          <div>
+            <label className="block text-xs font-semibold text-scrapbook-text mb-1">
+              Cerita Momen Ini *
+            </label>
+            <textarea
+              rows={4}
+              placeholder="Ceritakan hal seru, lucu, atau berkesan di hari itu..."
+              value={story}
+              onChange={(e) => setStory(e.target.value)}
+              disabled={saving}
+              className="w-full px-3.5 py-2.5 text-sm rounded-xl border border-scrapbook-secondary focus:outline-none focus:ring-2 focus:ring-scrapbook-primary/40 resize-y"
+            />
+          </div>
+
+          {/* Tombol Aksi */}
+          <div className="pt-2 flex items-center justify-end gap-2 border-t border-pink-100">
             <button
               type="button"
               disabled={saving}
               onClick={resetAndClose}
-              className="p-1.5 rounded-full text-scrapbook-text/60 hover:bg-scrapbook-secondary/50 transition shrink-0"
+              className="px-4 py-2 rounded-xl text-xs font-semibold text-scrapbook-text/70 hover:bg-gray-100 transition"
             >
-              <X className="w-4 h-4" />
+              Batal
+            </button>
+            <button
+              type="submit"
+              disabled={saving}
+              className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-xs font-semibold bg-scrapbook-primary text-white shadow-md hover:bg-[#d86189] disabled:opacity-60 transition"
+            >
+              {saving ? (
+                <>
+                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                  <span>Mengunggah...</span>
+                </>
+              ) : (
+                <span>Simpan Kenangan</span>
+              )}
             </button>
           </div>
-
-          {/* Form */}
-          <form onSubmit={handleSubmit} className="p-4 sm:p-5 space-y-4">
-            {errorMsg && (
-              <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-medium">
-                {errorMsg}
-              </div>
-            )}
-
-            {/* Judul */}
-            <div className="min-w-0">
-              <label className="block text-xs font-semibold text-scrapbook-text mb-1">
-                Judul Kenangan *
-              </label>
-              <input
-                type="text"
-                placeholder="Misal: Makan Malam Pertama di Blok M"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                disabled={saving}
-                className="w-full min-w-0 max-w-full box-border px-3.5 py-2.5 text-base sm:text-sm rounded-xl border border-scrapbook-secondary focus:outline-none focus:ring-2 focus:ring-scrapbook-primary/40"
-              />
-            </div>
-
-            {/* Tanggal & Kategori (1 Kolom di HP, 2 Kolom di Laptop) */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div className="min-w-0">
-                <label className="block text-xs font-semibold text-scrapbook-text mb-1">
-                  Tanggal Kejadian *
-                </label>
-                <div className="relative min-w-0">
-                  <Calendar className="w-4 h-4 text-scrapbook-primary absolute left-3 top-3 pointer-events-none" />
-                  <input
-                    type="date"
-                    value={eventDate}
-                    onChange={(e) => setEventDate(e.target.value)}
-                    disabled={saving}
-                    className="w-full min-w-0 max-w-full box-border appearance-none pl-9 pr-3 py-2.5 text-base sm:text-sm rounded-xl border border-scrapbook-secondary bg-white focus:outline-none focus:ring-2 focus:ring-scrapbook-primary/40"
-                  />
-                </div>
-              </div>
-
-              <div className="min-w-0">
-                <div className="flex items-center justify-between mb-1">
-                  <label className="block text-xs font-semibold text-scrapbook-text">
-                    Kategori
-                  </label>
-                  {onOpenAddCategory && (
-                    <button
-                      type="button"
-                      onClick={onOpenAddCategory}
-                      className="inline-flex items-center gap-0.5 text-[11px] font-semibold text-scrapbook-primary hover:underline"
-                    >
-                      <Plus className="w-3 h-3" />
-                      <span>Baru</span>
-                    </button>
-                  )}
-                </div>
-                <select
-                  value={categoryId}
-                  onChange={(e) => setCategoryId(e.target.value)}
-                  disabled={saving}
-                  className="w-full min-w-0 max-w-full box-border px-3 py-2.5 text-base sm:text-sm rounded-xl border border-scrapbook-secondary bg-white focus:outline-none focus:ring-2 focus:ring-scrapbook-primary/40"
-                >
-                  {categories.map((cat) => (
-                    <option key={cat.id} value={cat.id}>
-                      {cat.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
-            {/* Nama Lokasi & Link Maps */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div className="min-w-0">
-                <label className="block text-xs font-semibold text-scrapbook-text mb-1">
-                  Nama Tempat (Opsional)
-                </label>
-                <div className="relative min-w-0">
-                  <MapPin className="w-4 h-4 text-scrapbook-primary absolute left-3 top-3 pointer-events-none" />
-                  <input
-                    type="text"
-                    placeholder="Misal: Pantai Indah Kapuk"
-                    value={locationName}
-                    onChange={(e) => setLocationName(e.target.value)}
-                    disabled={saving}
-                    className="w-full min-w-0 max-w-full box-border pl-9 pr-3 py-2.5 text-base sm:text-sm rounded-xl border border-scrapbook-secondary focus:outline-none focus:ring-2 focus:ring-scrapbook-primary/40"
-                  />
-                </div>
-              </div>
-
-              <div className="min-w-0">
-                <label className="block text-xs font-semibold text-scrapbook-text mb-1">
-                  Link Google Maps (Opsional)
-                </label>
-                <div className="relative min-w-0">
-                  <LinkIcon className="w-4 h-4 text-scrapbook-primary absolute left-3 top-3 pointer-events-none" />
-                  <input
-                    type="url"
-                    placeholder="https://maps.google.com/..."
-                    value={locationUrl}
-                    onChange={(e) => setLocationUrl(e.target.value)}
-                    disabled={saving}
-                    className="w-full min-w-0 max-w-full box-border pl-9 pr-3 py-2.5 text-base sm:text-sm rounded-xl border border-scrapbook-secondary focus:outline-none focus:ring-2 focus:ring-scrapbook-primary/40"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Upload Foto */}
-            <div className="min-w-0">
-              <label className="block text-xs font-semibold text-scrapbook-text mb-1.5">
-                Foto Momen (Bisa pilih banyak sekaligus) *
-              </label>
-
-              <label className="flex flex-col items-center justify-center p-4 rounded-xl border-2 border-dashed border-scrapbook-secondary bg-scrapbook-bg/40 hover:bg-scrapbook-bg cursor-pointer transition">
-                <ImagePlus className="w-6 h-6 text-scrapbook-primary mb-1" />
-                <span className="text-xs font-semibold text-scrapbook-text text-center">
-                  Ketuk untuk memilih foto dari galeri HP
-                </span>
-                <span className="text-[11px] text-scrapbook-text/60 mt-0.5">
-                  Otomatis dikompres agar hemat kuota & cepat dimuat
-                </span>
-                <input
-                  type="file"
-                  accept="image/*"
-                  multiple
-                  onChange={handleFileChange}
-                  disabled={saving}
-                  className="hidden"
-                />
-              </label>
-
-              {/* Pratinjau Foto Terpilih */}
-              {previews.length > 0 && (
-                <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 mt-3">
-                  {previews.map((src, idx) => (
-                    <div
-                      key={src}
-                      className="relative aspect-square rounded-xl overflow-hidden border border-scrapbook-secondary bg-pink-50"
-                    >
-                      <img
-                        src={src}
-                        alt={`Pratinjau ${idx + 1}`}
-                        className="w-full h-full object-cover"
-                      />
-                      <button
-                        type="button"
-                        disabled={saving}
-                        onClick={() => removePhoto(idx)}
-                        className="absolute top-1 right-1 p-1 rounded-full bg-black/65 text-white hover:bg-red-600 transition"
-                        title="Hapus foto ini"
-                      >
-                        <X className="w-3 h-3" />
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Cerita */}
-            <div className="min-w-0">
-              <label className="block text-xs font-semibold text-scrapbook-text mb-1">
-                Cerita Momen Ini *
-              </label>
-              <textarea
-                rows={4}
-                placeholder="Ceritakan hal seru, lucu, atau berkesan di hari itu..."
-                value={story}
-                onChange={(e) => setStory(e.target.value)}
-                disabled={saving}
-                className="w-full min-w-0 max-w-full box-border px-3.5 py-2.5 text-base sm:text-sm rounded-xl border border-scrapbook-secondary focus:outline-none focus:ring-2 focus:ring-scrapbook-primary/40 resize-y"
-              />
-            </div>
-
-            {/* Tombol Aksi */}
-            <div className="pt-2 flex items-center justify-end gap-2 border-t border-pink-100">
-              <button
-                type="button"
-                disabled={saving}
-                onClick={resetAndClose}
-                className="px-4 py-2 rounded-xl text-xs font-semibold text-scrapbook-text/70 hover:bg-gray-100 transition"
-              >
-                Batal
-              </button>
-              <button
-                type="submit"
-                disabled={saving}
-                className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-xs font-semibold bg-scrapbook-primary text-white shadow-md hover:bg-[#d86189] disabled:opacity-60 transition"
-              >
-                {saving ? (
-                  <>
-                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                    <span>Mengunggah...</span>
-                  </>
-                ) : (
-                  <span>Simpan Kenangan</span>
-                )}
-              </button>
-            </div>
-          </form>
-        </div>
+        </form>
       </div>
     </div>
   );

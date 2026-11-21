@@ -20,15 +20,17 @@
 }
 
 /* Kunci halaman agar tidak bisa geser horizontal & tidak zoom di HP */
+/* Kunci halaman agar tidak goyang ke samping & tidak auto-zoom di HP */
 html,
 body {
+  width: 100%;
   max-width: 100%;
   overflow-x: hidden;
-  touch-action: pan-y;
+  overscroll-behavior-x: none;
   -webkit-text-size-adjust: 100%;
 }
 
-/* Mencegah iOS Safari & Chrome HP melakukan auto-zoom saat mengetik di form */
+/* Mencegah iOS Safari melakukan auto-zoom saat mengetik di kolom form */
 @media screen and (max-width: 640px) {
   input,
   textarea,
