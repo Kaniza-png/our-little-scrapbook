@@ -19,7 +19,6 @@
   box-shadow: 0 1px 3px rgba(74, 59, 64, 0.12);
 }
 
-/* Kunci halaman agar tidak bisa geser horizontal & tidak zoom di HP */
 /* Kunci halaman agar tidak goyang ke samping & tidak auto-zoom di HP */
 html,
 body {
@@ -37,4 +36,20 @@ body {
   select {
     font-size: 16px !important;
   }
+}
+
+/* Paksa kolom input tanggal di Safari iOS agar tidak melebar keluar batas */
+input[type="date"] {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  min-inline-size: 0;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+input[type="date"]::-webkit-date-and-time-value {
+  text-align: left;
+  min-height: 1.5em;
 }

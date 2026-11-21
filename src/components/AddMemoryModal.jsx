@@ -196,7 +196,7 @@ export default function AddMemoryModal({
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-scrapbook-secondary overflow-hidden my-auto"
+        className="w-full max-w-lg min-w-0 bg-white rounded-2xl shadow-2xl border border-scrapbook-secondary overflow-hidden my-auto"
       >
         {/* Header */}
         <div className="bg-scrapbook-bg px-5 py-4 border-b border-scrapbook-secondary flex items-center justify-between gap-2">
@@ -231,7 +231,7 @@ export default function AddMemoryModal({
           )}
 
           {/* Judul */}
-          <div>
+          <div className="min-w-0">
             <label className="block text-xs font-semibold text-scrapbook-text mb-1">
               Judul Kenangan *
             </label>
@@ -241,29 +241,29 @@ export default function AddMemoryModal({
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               disabled={saving}
-              className="w-full h-11 px-3.5 text-sm rounded-xl border border-scrapbook-secondary focus:outline-none focus:ring-2 focus:ring-scrapbook-primary/40"
+              className="block w-full min-w-0 max-w-full box-border h-11 px-3.5 text-sm rounded-xl border border-scrapbook-secondary focus:outline-none focus:ring-2 focus:ring-scrapbook-primary/40"
             />
           </div>
 
           {/* Tanggal & Kategori */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
+            <div className="min-w-0">
               <label className="block text-xs font-semibold text-scrapbook-text mb-1">
                 Tanggal Kejadian *
               </label>
-              <div className="relative">
-                <Calendar className="w-4 h-4 text-scrapbook-primary absolute left-3 top-3.5 pointer-events-none" />
+              <div className="relative w-full min-w-0 overflow-hidden">
+                <Calendar className="w-4 h-4 text-scrapbook-primary absolute left-3 top-3.5 pointer-events-none z-10" />
                 <input
                   type="date"
                   value={eventDate}
                   onChange={(e) => setEventDate(e.target.value)}
                   disabled={saving}
-                  className="w-full h-11 pl-9 pr-3 text-sm rounded-xl border border-scrapbook-secondary bg-white text-scrapbook-text focus:outline-none focus:ring-2 focus:ring-scrapbook-primary/40"
+                  className="block w-full min-w-0 max-w-full box-border h-11 pl-9 pr-3 text-sm rounded-xl border border-scrapbook-secondary bg-white text-scrapbook-text focus:outline-none focus:ring-2 focus:ring-scrapbook-primary/40"
                 />
               </div>
             </div>
 
-            <div>
+            <div className="min-w-0">
               <div className="flex items-center justify-between mb-1">
                 <label className="block text-xs font-semibold text-scrapbook-text">
                   Kategori
@@ -283,7 +283,7 @@ export default function AddMemoryModal({
                 value={categoryId}
                 onChange={(e) => setCategoryId(e.target.value)}
                 disabled={saving}
-                className="w-full h-11 px-3 text-sm rounded-xl border border-scrapbook-secondary bg-white text-scrapbook-text focus:outline-none focus:ring-2 focus:ring-scrapbook-primary/40"
+                className="block w-full min-w-0 max-w-full box-border h-11 px-3 text-sm rounded-xl border border-scrapbook-secondary bg-white text-scrapbook-text focus:outline-none focus:ring-2 focus:ring-scrapbook-primary/40"
               >
                 {categories.map((cat) => (
                   <option key={cat.id} value={cat.id}>
@@ -296,11 +296,11 @@ export default function AddMemoryModal({
 
           {/* Nama Lokasi & Link Maps */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
+            <div className="min-w-0">
               <label className="block text-xs font-semibold text-scrapbook-text mb-1">
                 Nama Tempat (Opsional)
               </label>
-              <div className="relative">
+              <div className="relative w-full min-w-0">
                 <MapPin className="w-4 h-4 text-scrapbook-primary absolute left-3 top-3.5 pointer-events-none" />
                 <input
                   type="text"
@@ -308,16 +308,16 @@ export default function AddMemoryModal({
                   value={locationName}
                   onChange={(e) => setLocationName(e.target.value)}
                   disabled={saving}
-                  className="w-full h-11 pl-9 pr-3 text-sm rounded-xl border border-scrapbook-secondary focus:outline-none focus:ring-2 focus:ring-scrapbook-primary/40"
+                  className="block w-full min-w-0 max-w-full box-border h-11 pl-9 pr-3 text-sm rounded-xl border border-scrapbook-secondary focus:outline-none focus:ring-2 focus:ring-scrapbook-primary/40"
                 />
               </div>
             </div>
 
-            <div>
+            <div className="min-w-0">
               <label className="block text-xs font-semibold text-scrapbook-text mb-1">
                 Link Google Maps (Opsional)
               </label>
-              <div className="relative">
+              <div className="relative w-full min-w-0">
                 <LinkIcon className="w-4 h-4 text-scrapbook-primary absolute left-3 top-3.5 pointer-events-none" />
                 <input
                   type="url"
@@ -325,14 +325,14 @@ export default function AddMemoryModal({
                   value={locationUrl}
                   onChange={(e) => setLocationUrl(e.target.value)}
                   disabled={saving}
-                  className="w-full h-11 pl-9 pr-3 text-sm rounded-xl border border-scrapbook-secondary focus:outline-none focus:ring-2 focus:ring-scrapbook-primary/40"
+                  className="block w-full min-w-0 max-w-full box-border h-11 pl-9 pr-3 text-sm rounded-xl border border-scrapbook-secondary focus:outline-none focus:ring-2 focus:ring-scrapbook-primary/40"
                 />
               </div>
             </div>
           </div>
 
           {/* Upload Foto */}
-          <div>
+          <div className="min-w-0">
             <label className="block text-xs font-semibold text-scrapbook-text mb-1.5">
               Foto Momen (Bisa pilih banyak sekaligus) *
             </label>
@@ -384,7 +384,7 @@ export default function AddMemoryModal({
           </div>
 
           {/* Cerita */}
-          <div>
+          <div className="min-w-0">
             <label className="block text-xs font-semibold text-scrapbook-text mb-1">
               Cerita Momen Ini *
             </label>
@@ -394,7 +394,7 @@ export default function AddMemoryModal({
               value={story}
               onChange={(e) => setStory(e.target.value)}
               disabled={saving}
-              className="w-full px-3.5 py-2.5 text-sm rounded-xl border border-scrapbook-secondary focus:outline-none focus:ring-2 focus:ring-scrapbook-primary/40 resize-y"
+              className="block w-full min-w-0 max-w-full box-border px-3.5 py-2.5 text-sm rounded-xl border border-scrapbook-secondary focus:outline-none focus:ring-2 focus:ring-scrapbook-primary/40 resize-y"
             />
           </div>
 

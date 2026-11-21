@@ -73,17 +73,17 @@ export default function SettingsModal({
   return (
     <div
       onClick={onClose}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm overflow-y-auto overflow-x-hidden overscroll-x-none"
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-md bg-white rounded-2xl shadow-2xl border border-scrapbook-secondary overflow-hidden"
+        className="w-full max-w-md min-w-0 bg-white rounded-2xl shadow-2xl border border-scrapbook-secondary overflow-hidden my-auto"
       >
         {/* Header */}
-        <div className="bg-scrapbook-bg px-5 py-4 border-b border-scrapbook-secondary flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Settings className="w-5 h-5 text-scrapbook-primary" />
-            <div>
+        <div className="bg-scrapbook-bg px-5 py-4 border-b border-scrapbook-secondary flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 min-w-0">
+            <Settings className="w-5 h-5 text-scrapbook-primary shrink-0" />
+            <div className="min-w-0">
               <h2 className="font-handwriting text-3xl font-bold text-scrapbook-text leading-none">
                 Pengaturan Scrapbook
               </h2>
@@ -97,7 +97,7 @@ export default function SettingsModal({
             type="button"
             disabled={saving}
             onClick={onClose}
-            className="p-1.5 rounded-full text-scrapbook-text/60 hover:bg-scrapbook-secondary/50 transition"
+            className="p-1.5 rounded-full text-scrapbook-text/60 hover:bg-scrapbook-secondary/50 transition shrink-0"
           >
             <X className="w-4 h-4" />
           </button>
@@ -112,59 +112,59 @@ export default function SettingsModal({
           )}
 
           {/* Nama Pasangan */}
-          <div>
+          <div className="min-w-0">
             <label className="block text-xs font-semibold text-scrapbook-text mb-1">
               Nama Pasangan / Judul Perjalanan *
             </label>
-            <div className="relative">
-              <Heart className="w-4 h-4 text-scrapbook-primary absolute left-3.5 top-2.5 pointer-events-none" />
+            <div className="relative w-full min-w-0">
+              <Heart className="w-4 h-4 text-scrapbook-primary absolute left-3.5 top-3.5 pointer-events-none" />
               <input
                 type="text"
                 placeholder="Misal: Farel & Pasangan"
                 value={coupleNames}
                 onChange={(e) => setCoupleNames(e.target.value)}
                 disabled={saving}
-                className="w-full pl-10 pr-3.5 py-2 text-sm rounded-xl border border-scrapbook-secondary focus:outline-none focus:ring-2 focus:ring-scrapbook-primary/40"
+                className="block w-full min-w-0 max-w-full box-border h-11 pl-10 pr-3.5 text-sm rounded-xl border border-scrapbook-secondary focus:outline-none focus:ring-2 focus:ring-scrapbook-primary/40"
               />
             </div>
           </div>
 
           {/* Tanggal Jadian */}
-          <div>
+          <div className="min-w-0">
             <label className="block text-xs font-semibold text-scrapbook-text mb-1">
               Tanggal Jadian / Mulai Bersama *
             </label>
-            <div className="relative">
-              <CalendarHeart className="w-4 h-4 text-scrapbook-primary absolute left-3.5 top-2.5 pointer-events-none" />
+            <div className="relative w-full min-w-0 overflow-hidden">
+              <CalendarHeart className="w-4 h-4 text-scrapbook-primary absolute left-3.5 top-3.5 pointer-events-none z-10" />
               <input
                 type="date"
                 value={anniversaryDate}
                 onChange={(e) => setAnniversaryDate(e.target.value)}
                 disabled={saving}
-                className="w-full pl-10 pr-3.5 py-2 text-sm rounded-xl border border-scrapbook-secondary focus:outline-none focus:ring-2 focus:ring-scrapbook-primary/40"
+                className="block w-full min-w-0 max-w-full box-border h-11 pl-10 pr-3.5 text-sm rounded-xl border border-scrapbook-secondary bg-white text-scrapbook-text focus:outline-none focus:ring-2 focus:ring-scrapbook-primary/40"
               />
             </div>
           </div>
 
           {/* Passcode Bersama */}
-          <div>
+          <div className="min-w-0">
             <label className="block text-xs font-semibold text-scrapbook-text mb-1">
               Shared Passcode Login *
             </label>
-            <div className="relative">
-              <KeyRound className="w-4 h-4 text-scrapbook-primary absolute left-3.5 top-2.5 pointer-events-none" />
+            <div className="relative w-full min-w-0">
+              <KeyRound className="w-4 h-4 text-scrapbook-primary absolute left-3.5 top-3.5 pointer-events-none" />
               <input
                 type={showPasscode ? "text" : "password"}
                 placeholder="Kode rahasia untuk edit..."
                 value={passcode}
                 onChange={(e) => setPasscode(e.target.value)}
                 disabled={saving}
-                className="w-full pl-10 pr-10 py-2 text-sm rounded-xl border border-scrapbook-secondary focus:outline-none focus:ring-2 focus:ring-scrapbook-primary/40"
+                className="block w-full min-w-0 max-w-full box-border h-11 pl-10 pr-10 text-sm rounded-xl border border-scrapbook-secondary focus:outline-none focus:ring-2 focus:ring-scrapbook-primary/40"
               />
               <button
                 type="button"
                 onClick={() => setShowPasscode((prev) => !prev)}
-                className="absolute right-3 top-2.5 text-scrapbook-text/50 hover:text-scrapbook-primary transition"
+                className="absolute right-3 top-3.5 text-scrapbook-text/50 hover:text-scrapbook-primary transition"
               >
                 {showPasscode ? (
                   <EyeOff className="w-4 h-4" />
@@ -188,7 +188,7 @@ export default function SettingsModal({
             <button
               type="submit"
               disabled={saving}
-              className="inline-flex items-center gap-1.5 px-5 py-2 rounded-xl text-xs font-semibold bg-scrapbook-primary text-white shadow-md hover:bg-[#d86189] disabled:opacity-60 transition"
+              className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-xs font-semibold bg-scrapbook-primary text-white shadow-md hover:bg-[#d86189] disabled:opacity-60 transition"
             >
               {saving ? (
                 <>
