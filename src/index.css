@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    background-color: #fceef2;
+    color: #4a3b40;
+    /* Pola titik-titik lembut seperti kertas scrapbook */
+    background-image: radial-gradient(#f3c6d7 1.2px, transparent 1.2px);
+    background-size: 24px 24px;
+  }
+}
+
+/* Efek selotip (washi tape) di bagian atas kartu Polaroid */
+.washi-tape {
+  background-color: rgba(248, 200, 220, 0.85);
+  box-shadow: 0 1px 3px rgba(74, 59, 64, 0.12);
+}
